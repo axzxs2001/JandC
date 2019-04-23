@@ -1,0 +1,45 @@
+@page "/articles"
+@using JandC.Data
+@inject ArticleService  ArticleService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (articles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in articles)
+            {
+                <tr>
+                    <td>@article.ID</td>
+                    <td>@article.Title</td>
+                    <td>@(article.Content.Substring(0,10)+"……")</td>
+                    <td>@article.CreateTime.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+    IEnumerable<Article> articles;
+
+    protected override async Task OnInitAsync()
+    {
+        articles = await ArticleService.GetArticlesAsync();
+    }
+}
