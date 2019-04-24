@@ -23,6 +23,7 @@ namespace JandC.Data
         }
         public async Task<IEnumerable<Article>> GetArticlesAsync()
         {
+           
             using (var con = CreateConnection())
             {
                 return await con.QueryAsync<Article>("select * from articles");

@@ -19,6 +19,7 @@ namespace JandC
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ArticleService>();
         }
 
@@ -32,12 +33,13 @@ namespace JandC
 
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseRouting();          
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                
             });
         }
     }

@@ -2,7 +2,7 @@
 @using JandC.Data
 @inject ArticleService  ArticleService
 
-<h1>Weather forecast</h1>
+<h1>æ–‡ç« åˆ—è¡¨</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
 
@@ -15,10 +15,10 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>±àºÅ</th>
-                <th>±êÌâ</th>
-                <th>ÄÚÈİ</th>
-                <th>´´½¨Ê±¼ä</th>
+                <th>ç¼–å·</th>
+                <th>æ ‡é¢˜</th>
+                <th>å†…å®¹</th>
+                <th>åˆ›å»ºæ—¶é—´</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@ else
                 <tr>
                     <td>@article.ID</td>
                     <td>@article.Title</td>
-                    <td>@(article.Content.Substring(0,10)+"¡­¡­")</td>
+                    <td>@(article.Content?.Substring(0, 10) + "â€¦â€¦")</td>
                     <td>@article.CreateTime.ToString("yyyy-MM-dd")</td>
                 </tr>
             }
@@ -36,10 +36,12 @@ else
 }
 
 @functions {
+  
     IEnumerable<Article> articles;
 
     protected override async Task OnInitAsync()
     {
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         articles = await ArticleService.GetArticlesAsync();
     }
 }
