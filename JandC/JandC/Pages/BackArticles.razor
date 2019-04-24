@@ -1,0 +1,49 @@
+@page "/back/articles"
+@layout BackMainLayout
+@using JandC.Data
+@inject ArticleService  ArticleService
+
+<h2>文章列表</h2>
+@if (articles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover table-sm">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in articles)
+            {
+                <tr>
+                    <td>@article.ID</td>
+                    <td>@article.Title</td>
+                    <td>@(article.Content?.Substring(0,article.Content?.Length>60?60:article.Content.Length) + "……")</td>
+                    <td>@article.CreateTime.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a href="#" style="color:red;"><span class="oi oi-trash" aria-hidden="true" /></a>
+                        <a href="/back/editarticle/@article.ID" style="color:green;"><span class="oi oi-pencil" aria-hidden="true" /></a>                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+
+    IEnumerable<Article> articles;
+
+    protected override async Task OnInitAsync()
+    {  
+        articles = await ArticleService.GetArticlesAsync();
+    }
+}
