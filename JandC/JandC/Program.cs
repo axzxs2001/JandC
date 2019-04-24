@@ -24,6 +24,7 @@ namespace JandC
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://*:4567");
                     webBuilder.UseStartup<Startup>();
                 });
     }

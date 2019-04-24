@@ -1,0 +1,22 @@
+@page "/article/{Id:int}"
+@using JandC.Data
+@inject ArticleService  ArticleService
+
+<h1>@article.Title</h1>
+<p>@article.Content</p>
+
+@functions {
+  
+    [Parameter]
+    private int Id
+    {
+        get; set;
+    }
+
+    ArticleModel article;
+    protected override async Task OnInitAsync()
+    {
+        article = await ArticleService.GetArticleAsync(Id);
+    }
+
+}

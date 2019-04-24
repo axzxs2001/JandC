@@ -20,23 +20,23 @@ namespace JandC.Data
             connection.Open();
             return connection;
         }
-        public async Task<IEnumerable<Article>> GetArticlesAsync()
+        public async Task<IEnumerable<ArticleModel>> GetArticlesAsync()
         {
             
             using (var con = CreateConnection())
             {
-                return await con.QueryAsync<Article>("select * from articles");
+                return await con.QueryAsync<ArticleModel>("select * from articles");
             }
         }
 
-        public async Task<Article> GetArticleAsync(int id)
+        public async Task<ArticleModel> GetArticleAsync(int id)
         {
             using (var con = CreateConnection())
             {
-                return await con.QuerySingleOrDefaultAsync<Article>("select * from articles where id=@id", new { id });
+                return await con.QuerySingleOrDefaultAsync<ArticleModel>("select * from articles where id=@id", new { id });
             }
         }
-        public async Task<int> EditAsync(Article article)
+        public async Task<int> EditAsync(ArticleModel article)
         {
             using (var con = CreateConnection())
             {
