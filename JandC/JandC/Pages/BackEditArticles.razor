@@ -2,6 +2,7 @@
 @layout BackMainLayout
 @using JandC.Data
 @inject ArticleService  ArticleService
+@inject IUriHelper UriHelper
 
 <h2>编辑文章</h2>
 <div class="row">
@@ -11,7 +12,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group">
+    <div class="form-group" style="width:200px;">
         <label for="exampleInputEmail1">内容</label>
         <textarea type="email" class="form-control" rows="10" cols="20" bind="@article.Content" aria-describedby="emailHelp" placeholder="Enter email" />
     </div>
@@ -33,8 +34,9 @@
 
         article = await ArticleService.GetArticleAsync(Id);
     }
-    async Task  Sava()
+    async Task Sava()
     {
-        await ArticleService.EditAsync(article);       
+        await ArticleService.EditAsync(article);
+        UriHelper.NavigateTo("/back/articles");
     }
 }
