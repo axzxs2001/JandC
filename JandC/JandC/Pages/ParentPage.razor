@@ -15,21 +15,55 @@
 
 <h1>Parent Component</h1>
 <p>ParentYear: @ParentYear</p>
-<ChildComponent1 bind-Year="@ParentYear" />
+<ChildComponent1 bind-Year="@ParentYear" ref="childComponent1" />
 
 <button class="btn btn-primary" onclick="@ChangeTheYear">
     Change Year
 </button>
 
+<hr style="border-color:red; border-width:thick;" />
+
+<TableTemplate Items="@pets" Context="pet">
+    <TableHeader>
+        <th>ID</th>
+        <th>Name</th>
+    </TableHeader>
+    <RowTemplate>
+        <td>@pet.PetId</td>
+        <td>@pet.Name</td>
+    </RowTemplate>
+</TableTemplate>
+
+
 @functions {
 
+
+
+    #region pets
+
+    PetModel[] pets;
+    protected override void OnInit()
+    {
+        System.Text.Encoding.RegisterProvider( System.Text.CodePagesEncodingProvider.Instance);
+        pets = new PetModel[] {
+            new PetModel { PetId=1, Name="小猫"},
+            new PetModel { PetId=2, Name="小狗"}
+        };
+    }
+
+    #endregion
+
+
+
     #region ChildComponent1
+    private ChildComponent1 childComponent1;
     [Parameter]
     private int ParentYear { get; set; } = 1978;
 
     private void ChangeTheYear()
     {
-        ParentYear = 1986 + new Random().Next(1, 5);
+        ParentYear = 1986 + new Random().Next(1, 15);
+        Console.WriteLine(childComponent1.Year);
     }
     #endregion
 
@@ -42,5 +76,5 @@
     }
 
     #endregion
-   
+
 }
