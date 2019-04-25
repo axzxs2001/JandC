@@ -1,0 +1,11 @@
+
+<h2>Child Component</h2>
+<p>Year: @Year</p>
+<hr />
+@functions {
+    [Parameter]
+    private int Year { get; set; }
+
+    [Parameter]
+    private Action<int> YearChanged { get; set; }
+}

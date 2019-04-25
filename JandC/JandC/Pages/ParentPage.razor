@@ -1,0 +1,46 @@
+@page "/ParentPage"
+@using JandC.Data
+@inject IUriHelper UriHelper
+
+
+<ChildComponent Title="Panel Title from Parent"
+                OnClick="@ShowMessage">
+    Content of the child component is supplied
+    by the parent component.
+</ChildComponent>
+<p><b>@messageText</b></p>
+
+
+<hr style="border-color:red; border-width:thick;" />
+
+<h1>Parent Component</h1>
+<p>ParentYear: @ParentYear</p>
+<ChildComponent1 bind-Year="@ParentYear" />
+
+<button class="btn btn-primary" onclick="@ChangeTheYear">
+    Change Year
+</button>
+
+@functions {
+
+    #region ChildComponent1
+    [Parameter]
+    private int ParentYear { get; set; } = 1978;
+
+    private void ChangeTheYear()
+    {
+        ParentYear = 1986 + new Random().Next(1, 5);
+    }
+    #endregion
+
+    #region ChildComponent
+    private string messageText;
+
+    void ShowMessage(UIMouseEventArgs e)
+    {
+        messageText = "Blaze a new trail with Blazor!";
+    }
+
+    #endregion
+   
+}
