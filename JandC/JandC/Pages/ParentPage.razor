@@ -1,7 +1,7 @@
 @page "/ParentPage"
 @using JandC.Data
 @inject IUriHelper UriHelper
-
+@using MyComponent1
 
 <ChildComponent Title="Panel Title from Parent"
                 OnClick="@ShowMessage">
@@ -34,6 +34,12 @@
     </RowTemplate>
 </TableTemplate>
 
+<hr style="border-color:red; border-width:thick;" />
+
+<GswComponent Count="3" Message="桂素伟"></GswComponent>
+
+<GswComponent1 Count="4" Message="桂素伟111"></GswComponent1>
+
 
 @functions {
 
@@ -44,7 +50,7 @@
     PetModel[] pets;
     protected override void OnInit()
     {
-        System.Text.Encoding.RegisterProvider( System.Text.CodePagesEncodingProvider.Instance);
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         pets = new PetModel[] {
             new PetModel { PetId=1, Name="小猫"},
             new PetModel { PetId=2, Name="小狗"}

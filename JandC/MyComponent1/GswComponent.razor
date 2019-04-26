@@ -1,0 +1,17 @@
+﻿@using  Microsoft.AspNetCore.Components
+
+<ul>
+    @for(int i=0;i<Count;i++)
+    {
+    <li>
+        @Message
+    </li>
+    }
+</ul>
+
+@functions {
+    [Parameter]
+    private int Count{get;set;}
+    [Parameter]
+    private string Message{get;set;}
+}
