@@ -9,27 +9,33 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using JandC.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net.Http;
 
 namespace JandC
 {
     public class Startup
     {
-      
+
         public void ConfigureServices(IServiceCollection services)
-        {   
+        {
             services.AddRazorPages();
-            services.AddServerSideBlazor();       
-            services.AddSingleton<ArticleService>();  
-            //添加认证Cookie信息
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/login");
-                    options.AccessDeniedPath = new PathString("/denied");
-                });
+            services.AddServerSideBlazor();
+            services.AddSingleton<ArticleService>();
+
+            //services.AddScoped<HttpClient>();
+            //services.AddScoped((sp) =>
+            //{
+            //    return new Blazor.Auth0.Shared.Models.ClientSettings()
+            //    {
+            //        Auth0Domain = "[Auth0_Domain]",
+            //        Auth0ClientId = "[Auth0_Client_Id]"
+            //    };
+            //});
+
+            //services.AddScoped<Blazor.Auth0.ServerSide.Authentication.AuthenticationService>();
         }
 
-   
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -48,7 +54,7 @@ namespace JandC
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
-                
+
             });
         }
     }
