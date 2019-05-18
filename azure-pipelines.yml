@@ -13,5 +13,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)/JandC/JandC/
+- script: dotnet build JandC/JandC/JandC.csproj --configuration $(buildConfiguration)/JandC/JandC/
   displayName: 'dotnet build $(buildConfiguration)'
